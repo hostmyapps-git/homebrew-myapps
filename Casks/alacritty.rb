@@ -6,7 +6,7 @@ cask "alacritty" do
     require "json"
     require "open-uri"
     apiURL = "https://api.github.com/repos/alacritty/alacritty/releases/latest"
-    releaseData = URI.open(apiURL).read
+    releaseData = URI.open(apiURL, "User-Agent" => "Homebrew-Cask").read
     json = JSON.parse(releaseData)
     asset = json["assets"].find { |a| a["name"].end_with?(".dmg") }
     asset["browser_download_url"]
