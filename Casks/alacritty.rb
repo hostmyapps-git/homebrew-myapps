@@ -1,18 +1,19 @@
 cask "alacritty" do
-  version "0.17.0"
-  sha256 "ad8d7de35fb38e43184776cac6dfee05ca325caa0b6639a06a55e54e4b026620"
+  version :latest
+  sha256 :no_check
 
-  url "https://github.com/alacritty/alacritty/releases/download/v#{version}/Alacritty-v#{version}.dmg"
+  url do
+    require "json"
+    require "open-uri"
+    apiURL = "https://github.com"
+    releaseData = URI.open(apiURL).read
+    json = JSON.parse(releaseData)
+    asset = json["assets"].find { |a| a["name"].end_with?(".dmg") }
+    asset["browser_download_url"]
+  end
   name "Alacritty"
   desc "GPU-accelerated terminal emulator"
   homepage "https://github.com/alacritty/alacritty/"
-
-  livecheck do
-    url :url
-    strategy :github_latest
-  end
-
-  #disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   depends_on :macos
 
