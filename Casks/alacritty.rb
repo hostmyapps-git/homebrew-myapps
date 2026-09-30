@@ -2,15 +2,8 @@ cask "alacritty" do
   version :latest
   sha256 :no_check
 
-  url do
-    require "json"
-    require "open-uri"
-    apiURL = "https://api.github.com/repos/alacritty/alacritty/releases/latest"
-    releaseData = URI.open(apiURL, "User-Agent" => "Homebrew-Cask").read
-    json = JSON.parse(releaseData)
-    asset = json["assets"].find { |a| a["name"].end_with?(".dmg") }
-    asset["browser_download_url"]
-  end
+  url "https://github.com/alacritty/alacritty/releases/latest/download/Alacritty.dmg"
+
   name "Alacritty"
   desc "GPU-accelerated terminal emulator"
   homepage "https://github.com/alacritty/alacritty/"
