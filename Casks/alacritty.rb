@@ -1,12 +1,18 @@
 cask "alacritty" do
-  version :latest
-  sha256 :no_check
+  version "0.17.0"
+  sha256 "ad8d7de35fb38e43184776cac6dfee05ca325caa0b6639a06a55e54e4b026620"
 
-  url "https://github.com/alacritty/alacritty/releases/latest/download/Alacritty.dmg"
-
+  url "https://github.com/alacritty/alacritty/releases/download/v#{version}/Alacritty-v#{version}.dmg"
   name "Alacritty"
   desc "GPU-accelerated terminal emulator"
   homepage "https://github.com/alacritty/alacritty/"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
+  #disable! date: "2026-09-01", because: :fails_gatekeeper_check
 
   depends_on :macos
 
