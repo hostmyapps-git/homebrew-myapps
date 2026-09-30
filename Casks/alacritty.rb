@@ -5,7 +5,7 @@ cask "alacritty" do
   url do
     require "json"
     require "open-uri"
-    apiURL = "https://github.com"
+    apiURL = "https://api.github.com/repos/alacritty/alacritty/releases/latest"
     releaseData = URI.open(apiURL).read
     json = JSON.parse(releaseData)
     asset = json["assets"].find { |a| a["name"].end_with?(".dmg") }
